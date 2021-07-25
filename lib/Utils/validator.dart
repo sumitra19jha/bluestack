@@ -1,52 +1,40 @@
 class Validator {
-  static String? validateEmail(
-    String email,
-  ) {
-    // If email is empty return.
-    if (email.isEmpty) {
-      return "Email must not be left blank";
+  static String? validatePhone(String phone) {
+    if (phone.isEmpty) {
+      return "Phone number must not be left blank";
     }
-    const String pattern =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$";
+    const String pattern = r"^(?:[+0]9)?[0-9]{10}$";
     final RegExp regex = RegExp(pattern);
-    if (!regex.hasMatch(email)) {
-      return 'Please enter a valid Email Address';
+
+    if (phone.length != 10) {
+      return 'Phone Number must be 10 digits long';
     }
+
+    if (!regex.hasMatch(phone)) {
+      return 'Please enter a valid Phone Number';
+    }
+
     return null;
   }
 
-  static String? validatePassword(
-    String password,
-  ) {
+  static String? validatePassword(String password) {
     // If password is empty return.
     if (password.isEmpty) {
       return "Password must not be left blank";
     }
-    const String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
-    final RegExp regExp = RegExp(pattern);
 
     //Regex for no spaces allowed
     const String noSpaces = r'^\S+$';
     final RegExp noSpaceRegex = RegExp(noSpaces);
 
-    if (!regExp.hasMatch(password)) {
-      return "Invalid Password";
-    }
     if (!noSpaceRegex.hasMatch(password)) {
       return "Password must not contain spaces";
     }
 
-    return null;
-  }
-
-  static String? validatePasswordConfirm(
-    String value,
-    String comparator,
-  ) {
-    if (value != comparator) {
-      return 'Password does not match original';
+    if (password != "password123") {
+      return "Wrong Credentials, Try Again";
     }
+
     return null;
   }
 }

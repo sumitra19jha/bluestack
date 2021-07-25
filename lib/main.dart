@@ -1,3 +1,5 @@
+import 'package:bluestack/Provider/login.dart';
+import 'package:bluestack/home.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:provider/provider.dart';
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: AppLanguage()),
+        ChangeNotifierProvider.value(value: LoginProvider()),
       ],
       child: Consumer<AppLanguage>(
         builder: (context, model, child) => MaterialApp(
@@ -28,7 +31,14 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: AuthPage(),
+          home: Consumer<LoginProvider>(
+            builder: (context, loginModel, child) {
+              loginModel.initialize();
+              return Provider.of<LoginProvider>(context).isUserAlreadyLogged
+                  ? HomeScreen()
+                  : AuthPage();
+            },
+          ),
         ),
       ),
     );

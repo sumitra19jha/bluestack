@@ -1,9 +1,13 @@
+import 'package:bluestack/Provider/login.dart';
 import 'package:bluestack/Utils/color.dart';
 import 'package:bluestack/Utils/lang_delegate.dart';
+import 'package:bluestack/Utils/page-animation.dart';
 import 'package:bluestack/Widgets/raisedRoundedButton.dart';
 import 'package:bluestack/Utils/size-config.dart';
 import 'package:bluestack/Utils/validator.dart';
+import 'package:bluestack/home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -13,9 +17,8 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  //----------------------------
   TextEditingController password = TextEditingController();
-  TextEditingController email = TextEditingController();
+  TextEditingController phone = TextEditingController();
   FocusNode passwordFocus = FocusNode();
   FocusNode emailFocus = FocusNode();
   bool hidePassword = true;
@@ -80,28 +83,29 @@ class _AuthPageState extends State<AuthPage> {
                     children: <Widget>[
                       SizedBox(height: 15),
                       TextFormField(
-                          controller: email,
-                          focusNode: emailFocus,
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.emailAddress,
-                          autofillHints: const <String>[AutofillHints.email],
-                          enableSuggestions: true,
-                          validator: (value) {
-                            final String? err = Validator.validateEmail(value!);
-                            if (err != null) {
-                              return AppLocalizations.of(context)!
-                                  .translate(err);
-                            }
+                        controller: phone,
+                        focusNode: emailFocus,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.phone,
+                        maxLength: 10,
+                        autofillHints: const <String>[AutofillHints.email],
+                        enableSuggestions: true,
+                        validator: (value) {
+                          final String? err = Validator.validatePhone(value!);
+                          if (err != null) {
+                            return AppLocalizations.of(context)!.translate(err);
+                          }
 
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!
-                                .translate("Phone Hint"),
-                            labelText:
-                                '${AppLocalizations.of(context)!.translate("Enter your Phone number")} *',
-                            labelStyle: Theme.of(context).textTheme.subtitle1,
-                          )),
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!
+                              .translate("Phone Hint"),
+                          labelText:
+                              '${AppLocalizations.of(context)!.translate("Enter your Phone number")} *',
+                          labelStyle: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.025,
                       ),
@@ -145,8 +149,26 @@ class _AuthPageState extends State<AuthPage> {
                       RaisedRoundedButton(
                         buttonLabel:
                             AppLocalizations.of(context)!.translate('Login'),
-                        onTap: () {
-                          //LOGIN-LOGIC-----------------------------------------
+                        onTap: () async {
+                          emailFocus.unfocus();
+                          passwordFocus.unfocus();
+                          validate = AutovalidateMode.always;
+                          if (formKey.currentState!.validate()) {
+                            validate = AutovalidateMode.disabled;
+                            try {
+                              //LOGIN-LOGIC-----------------------------------------------------------
+                              await Provider.of<LoginProvider>(
+                                context,
+                                listen: false,
+                              ).login(phone.text, password.text);
+
+                              Navigator.of(context).pushReplacement(
+                                PageTransition.show(HomeScreen()),
+                              );
+                            } catch (e) {
+                              print(e);
+                            }
+                          }
                         },
                         textColor: const Color(0xFF008A37),
                         key: const Key('LoginButton'),
@@ -163,22 +185,5 @@ class _AuthPageState extends State<AuthPage> {
         ),
       ),
     );
-  }
-
-  login() async {
-    emailFocus.unfocus();
-    passwordFocus.unfocus();
-    validate = AutovalidateMode.always;
-    if (formKey.currentState!.validate()) {
-      validate = AutovalidateMode.disabled;
-      // navigationService.pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
-      // databaseFunctions.init();
-      try {
-        //LOGIN-LOGIC-----------------------------------------------------------
-      } on Exception catch (e) {
-        print('here');
-        print(e);
-      }
-    }
   }
 }
