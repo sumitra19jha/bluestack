@@ -1,3 +1,4 @@
+import 'package:bluestack/Provider/data-list.dart';
 import 'package:bluestack/Provider/login.dart';
 import 'package:bluestack/home.dart';
 import 'package:flutter/material.dart';
@@ -19,27 +20,26 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: AppLanguage()),
         ChangeNotifierProvider.value(value: LoginProvider()),
+        ChangeNotifierProvider.value(value: DataList()),
       ],
       child: Consumer<AppLanguage>(
-        builder: (context, model, child) => MaterialApp(
-          supportedLocales: [
-            Locale('en', 'US'),
-            Locale('hi', ''),
-          ],
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          home: Consumer<LoginProvider>(
-            builder: (context, loginModel, child) {
-              loginModel.initialize();
-              return Provider.of<LoginProvider>(context).isUserAlreadyLogged
-                  ? HomeScreen()
-                  : AuthPage();
-            },
-          ),
-        ),
+        builder: (context, model, child) {
+          Provider.of<LoginProvider>(context, listen: false).initialize();
+          return MaterialApp(
+            supportedLocales: [
+              Locale('en', 'US'),
+              Locale('hi', ''),
+            ],
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            home: Provider.of<LoginProvider>(context).isUserAlreadyLogged
+                ? HomeScreen()
+                : AuthPage(),
+          );
+        },
       ),
     );
   }

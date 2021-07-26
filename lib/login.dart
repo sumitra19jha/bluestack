@@ -72,9 +72,7 @@ class _AuthPageState extends State<AuthPage> {
             autovalidateMode: validate,
             child: Column(
               children: <Widget>[
-                Image.asset(
-                  'assets/Images/logo1.png',
-                ),
+                Image.asset('assets/Images/logo1.png'),
                 Container(
                   margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
                   padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
