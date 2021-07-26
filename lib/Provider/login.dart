@@ -13,7 +13,7 @@ class LoginProvider with ChangeNotifier {
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
-    final String isUserLogged = prefs.getString('isLogged');
+    final String? isUserLogged = prefs.getString('isLogged');
     if (isUserLogged == "true") {
       isLogged = true;
       notifyListeners();

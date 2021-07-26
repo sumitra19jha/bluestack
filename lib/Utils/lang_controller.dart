@@ -13,7 +13,8 @@ class AppLanguage extends ChangeNotifier {
       return Null;
     }
 
-    _appLocale = Locale(prefs.getString('language_code'));
+    var lngString = prefs.getString('language_code');
+    _appLocale = Locale(lngString!);
     return Null;
   }
 
