@@ -52,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
               future: futureUser,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  //return Text(snapshot.data!.title);
                   return UserCard(
                     rating: snapshot.data!.rating,
                     tournament: snapshot.data!.played,
@@ -63,8 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Text('${snapshot.error}');
                 }
 
-                // By default, show a loading spinner.
-                return const CircularProgressIndicator();
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                  child: SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: const CircularProgressIndicator(),
+                  ),
+                );
               },
             ),
             SizedBox(height: 20),
@@ -98,8 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Text('${snapshot.error}');
                 }
 
-                // By default, show a loading spinner.
-                return const CircularProgressIndicator();
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                  child: SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: const CircularProgressIndicator(),
+                  ),
+                );
               },
             )
           ],
