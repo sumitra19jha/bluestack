@@ -7,11 +7,11 @@ class Validator {
     final RegExp regex = RegExp(pattern);
 
     if (phone.length != 10) {
-      return 'Phone Number must be 10 digits long';
+      return "Phone Number must be 10 digits long";
     }
 
     if (!regex.hasMatch(phone)) {
-      return 'Please enter a valid Phone Number';
+      return "Please enter a valid Phone Number";
     }
 
     return null;

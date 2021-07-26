@@ -22,10 +22,10 @@ class AppLanguage extends ChangeNotifier {
     if (_appLocale == type) {
       return;
     }
-    if (type == Locale('hi')) {
-      _appLocale = Locale('hi');
-      await prefs.setString('language_code', 'hi');
-      await prefs.setString('countryCode', 'IN');
+    if (type == Locale('ja')) {
+      _appLocale = Locale('ja');
+      await prefs.setString('language_code', 'ja');
+      await prefs.setString('countryCode', 'JP');
     } else {
       _appLocale = Locale("en");
       await prefs.setString('language_code', 'en');

@@ -3,5 +3,15 @@
     "password": "Password",
     "Login": "Login",
     "Enter your Phone number": "Enter your Phone number",
-    "Enter your password": "Enter your password"
+    "Enter your password": "Enter your password",
+    "Phone number must not be left blank": "Phone number must not be left blank",
+    "Phone Number must be 10 digits long": "Phone Number must be 10 digits long",
+    "Please enter a valid Phone Number": "Please enter a valid Phone Number",
+    "Password must not be left blank": "Password must not be left blank",
+    "Password must not contain spaces": "Password must not contain spaces",
+    "Wrong Credentials, Try Again": "Wrong Credentials, Try Again",
+    "Select Language": "Select Language",
+    "Default": "Default",
+    "Select": "Select",
+    "Change language": "Change language"
 }

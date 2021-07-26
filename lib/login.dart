@@ -1,3 +1,4 @@
+import 'package:bluestack/Custom_Painters/language_icon.dart';
 import 'package:bluestack/Provider/login.dart';
 import 'package:bluestack/Utils/color.dart';
 import 'package:bluestack/Utils/lang_delegate.dart';
@@ -6,6 +7,7 @@ import 'package:bluestack/Widgets/raisedRoundedButton.dart';
 import 'package:bluestack/Utils/size-config.dart';
 import 'package:bluestack/Utils/validator.dart';
 import 'package:bluestack/home.dart';
+import 'package:bluestack/language.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -176,7 +178,36 @@ class _AuthPageState extends State<AuthPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 45),
+                GestureDetector(
+                  key: const Key('ChangeLanguage'),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      PageTransition.show(SelectLanguage()),
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: SizeConfig.safeBlockVertical! * 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomPaint(
+                          size: Size(
+                              SizeConfig.screenWidth! * 0.125,
+                              (SizeConfig.screenWidth! * 0.125 * 0.5)
+                                  .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                          painter: LanguageIcon(),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .translate('Change language'),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

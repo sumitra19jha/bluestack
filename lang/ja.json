@@ -1,0 +1,18 @@
+{
+    "Phone Hint": "9898989898",
+    "password": "パスワード",
+    "Login": "ログイン",
+    "Enter your Phone number": "電話番号を入力してください",
+    "Enter your password": "パスワードを入力してください",
+    "Phone number must not be left blank": "電話番号は空白のままにしないでください",
+    "Phone Number must be 10 digits long": "電話番号は10桁の長さである必要があります",
+    "Please enter a valid Phone Number": "有効な電話番号を入力して下さい",
+    "Password must not be left blank": "パスワードは空白のままにしないでください",
+    "Password must not contain spaces": "パスワードにスペースを含めることはできません",
+    "Wrong Credentials, Try Again": "間違ったクレデンシャル、再試行",
+    "Select Language": "言語を選択する",
+    "Default": "ディフォルト",
+    "Select": "選択する",
+    "Change language": "言語を変更"
+
+}
