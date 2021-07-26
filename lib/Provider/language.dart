@@ -13,7 +13,7 @@ class AppLanguageController extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final String langCode = prefs.getString('language_code') ?? 'en';
     _appLocale = Locale(langCode);
-    notifyListeners();
+    //notifyListeners();
     return Null;
   }
 

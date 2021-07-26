@@ -24,44 +24,45 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: DataList()),
         ChangeNotifierProvider.value(value: AppLanguageController())
       ],
-      child: Consumer<AppLanguage>(
-        builder: (context, model, child) {
-          Provider.of<LoginProvider>(context, listen: false).initialize();
-          Provider.of<AppLanguageController>(context, listen: false)
-              .initialize();
-
-          return MaterialApp(
-            locale: Provider.of<AppLanguageController>(context).appLocal,
-            supportedLocales: [
-              Locale('en', 'US'),
-              Locale('ja', ''),
-            ],
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            localeResolutionCallback:
-                (Locale? locale, Iterable<Locale> supportedLocales) {
-              if (locale == null) {
-                debugPrint("*language locale is null!!!");
-                return supportedLocales.first;
-              }
-              for (final Locale supportedLocale in supportedLocales) {
-                if (supportedLocale.languageCode == locale.languageCode ||
-                    supportedLocale.countryCode == locale.countryCode) {
-                  return supportedLocale;
+      child: Consumer<AppLanguageController>(
+          builder: (context, lngcontrol, child) {
+        lngcontrol.initialize();
+        return Consumer<AppLanguage>(
+          builder: (context, model, child) {
+            Provider.of<LoginProvider>(context, listen: false).initialize();
+            return MaterialApp(
+              locale: Provider.of<AppLanguageController>(context).appLocal,
+              supportedLocales: [
+                Locale('en', 'US'),
+                Locale('ja', ''),
+              ],
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              localeResolutionCallback:
+                  (Locale? locale, Iterable<Locale> supportedLocales) {
+                if (locale == null) {
+                  debugPrint("*language locale is null!!!");
+                  return supportedLocales.first;
                 }
-              }
-              return supportedLocales.first;
-            },
-            initialRoute: '/',
-            home: Provider.of<LoginProvider>(context).isUserAlreadyLogged
-                ? HomeScreen()
-                : AuthPage(),
-          );
-        },
-      ),
+                for (final Locale supportedLocale in supportedLocales) {
+                  if (supportedLocale.languageCode == locale.languageCode ||
+                      supportedLocale.countryCode == locale.countryCode) {
+                    return supportedLocale;
+                  }
+                }
+                return supportedLocales.first;
+              },
+              initialRoute: '/',
+              home: Provider.of<LoginProvider>(context).isUserAlreadyLogged
+                  ? HomeScreen()
+                  : AuthPage(),
+            );
+          },
+        );
+      }),
     );
   }
 }
