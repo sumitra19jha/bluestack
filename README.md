@@ -1,5 +1,5 @@
-# Bluestack
+# UI Template
 
-The bluestack app
+The template contains both UI and logic
 
 
